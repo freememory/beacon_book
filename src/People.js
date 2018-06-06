@@ -16,7 +16,7 @@ class People extends Component {
 
     deletePerson = (id) => {
         const people = [...this.state.people];
-        people.splice(people.findIndex(e => e.id === id));
+        people.splice(people.findIndex(e => e.id === id), 1);
         this.setState({people});
     }
 

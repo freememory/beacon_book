@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Layout, Menu, Modal } from 'antd';
 import './App.css';
-import People from './People';
-import AddPerson from './AddPerson';
+import People from './containers/People';
+import {AddPerson} from './components';
 
 const { Header, Content, Footer } = Layout;
 

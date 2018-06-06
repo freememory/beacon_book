@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Input, Select, Modal} from 'antd';
-import id from './id';
+import {uniqueId} from 'lodash';
+import { isNullOrUndefined } from 'util';
 const Option = Select.Option;
 const { TextArea } = Input;
 
@@ -21,11 +22,12 @@ class AddPerson extends Component {
         if(nextProps.visible !== curState.isVisible) {
             let newState = {                
                 isVisible: nextProps.visible,
-                ...defaultState
+                ...defaultState,
+                ...nextProps.person
             };
 
-            if(newState.isVisible) {
-                newState.id = id();
+            if(newState.isVisible && isNullOrUndefined(newState.id)) {
+                newState.id = uniqueId();
             }
             return newState;
         }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {Input, Select, Modal} from 'antd';
-import {uniqueId} from 'lodash';
-import { isNullOrUndefined } from 'util';
+import { connect } from 'react-redux';
 const Option = Select.Option;
 const { TextArea } = Input;
 
@@ -26,9 +25,6 @@ class AddPerson extends Component {
                 ...nextProps.person
             };
 
-            if(newState.isVisible && isNullOrUndefined(newState.id)) {
-                newState.id = uniqueId();
-            }
             return newState;
         }
 
@@ -73,4 +69,8 @@ class AddPerson extends Component {
     }
 }
 
-export default AddPerson;
+const mapStateToProps = (state, ownProps) => {
+    return ownProps.personId ? { person: state.users.find(u => u.id === ownProps.personId) } : {};
+}
+
+export default connect(mapStateToProps, null)(AddPerson);

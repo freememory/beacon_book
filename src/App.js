@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Layout, Menu, Modal } from 'antd';
+import { Layout, Menu } from 'antd';
 import './App.css';
 import People from './containers/People';
 import {AddPerson} from './components';
+import { connect } from 'react-redux';
+import { addUser } from './actions/actions';
 
-const { Header, Content, Footer } = Layout;
-
+const { Header, Content } = Layout;
 
 class App extends Component {
   state = {
@@ -13,7 +14,7 @@ class App extends Component {
   };
 
   addPerson = (person) => {
-    this.people.addPerson(person);
+    this.props.onAddPerson(person);
     this.setState({addPersonVisible: false});
   }
 
@@ -34,7 +35,7 @@ class App extends Component {
           </Header>
           <Content>
             <AddPerson visible={this.state.addPersonVisible} onSubmit={this.addPerson} onCancel={() => this.setState({addPersonVisible: false})} />
-            <People ref={ppl => (this.people = ppl)}/>
+            <People />
           </Content>
         </Layout>
       </div>
@@ -42,4 +43,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddPerson: person => dispatch(addUser(person))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(App);
